@@ -21,4 +21,16 @@ class User_model extends CI_Model {
 		$query = $this->db->get_where('user',array('id' => $id));
 		return $query->row_array();
 	}
+	
+	public function up_user($id,$userdata)
+	{
+	    //$this->db
+		return $this->db->where('id',$id)->update('user',$userdata);
+	}
+	
+	public function del($id)
+	{
+	    //$this->db
+		return $this->db->delete('user',array("id"=>$id));
+	}
 }

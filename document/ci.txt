@@ -1,0 +1,24 @@
+
+----更新数据-------------》：
+$data = array(
+    'title' => $title,
+    'name' => $name,
+    'date' => $date
+);
+
+$this->db->where('id', $id);
+$this->db->update('mytable', $data);
+或者：$this->db->where('id', $id)->update('mytable', $data);
+
+
+----删除数据-------------》：
+$this->db->delete()
+
+该方法生成 DELETE 语句并执行。
+
+$this->db->delete('mytable', array('id' => $id))
+或者：
+$this->db->where('id', $id);
+$this->db->delete('mytable');
+
+

@@ -59,3 +59,6 @@ $route['default_controller'] = 'home';
 /* news */
 $route['news/(:any)'] = 'news/view/$1';
 $route['news'] = 'news';
+
+/* admin user */
+$route['admin/user/modify/(:any)'] = "admin/user/modify/$1";
