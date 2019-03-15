@@ -1,4 +1,5 @@
 <?php
+/* 首页 */
 class Home extends CI_Controller{
     
     public function index($page = 'home')

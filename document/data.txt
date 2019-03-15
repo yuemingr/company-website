@@ -1,0 +1,20 @@
+数据库
+CREATE DATABASE compdata;
+
+新闻表
+CREATE TABLE news(
+id int(11) not null auto_increment primary key,
+content text not null,
+ctime int(10),
+mtime int(10));
+
+管理员表
+CREATE TABLE user(
+id int auto_increment primary key,
+uname varchar(30) NOT NULL,
+passwd varchar(32) NOT NULL,
+level tinyint DEFAULT 1 comment '管理员级别，0是超级管理',
+lock tinyint DEFAULT 0 comment '0正常，1锁定',
+ctime int,
+mtime int);
+
