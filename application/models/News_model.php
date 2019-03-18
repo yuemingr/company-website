@@ -17,4 +17,9 @@ class News_model extends CI_Model {
 		$query = $this->db->get_where('news',array('id' => $id));
 		return $query->row_array();
 	}
+	
+	public function create_new($new)
+	{
+		return $this->db->insert('news',$new);
+	}
 }
