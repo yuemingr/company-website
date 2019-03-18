@@ -15,7 +15,9 @@ class News extends CI_Controller{
 	    $this->load->view('admin/news/index',$data);
 	    $this->load->view('templates/footer', $data);
 	}
-    
+    public function create(){
+	
+	}
     public function view($id = NULL)
 	{
         $data['news_item'] = $this->news_model->get_news($id);
