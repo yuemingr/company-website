@@ -15,7 +15,48 @@ class News extends CI_Controller{
 		$this->load->view('admin/news/index',$data);
 		$this->load->view('templates/footer', $data);
 	}
-	public function create(){
+	
+	public function edit($newid = null)
+	{
+		$data['new'] = $this->news_model->get_news($newid);
+		if(empty($data['new']))
+		{
+			echo "not data";
+			return ;
+		}
+
+		$this->load->helper('form');
+		$this->load->library('form_validation');
+		$data['title'] = "修改文章";
+	
+		$this->form_validation->set_rules('title','title','required');
+		$this->form_validation->set_rules('content','content','required');
+		if ($this->form_validation->run() === FALSE)
+		{
+			$this->load->view('admin/news/newsedit', $data);
+		}
+		else
+		{
+			$new = array(
+				'title' => $this->input->post('title'),
+				'content' => $this->input->post('content'),
+				'mtime' => Date("Y-m-d H:i:s",time()),
+			);
+			$ret = $this->news_model->up_new($newid, $new);
+			if ($ret) 
+			{
+				var_dump($ret);
+				echo 'ook';
+			}
+			else
+			{
+				echo 'nott';
+			}
+		}
+		
+	}
+	public function create()
+	{
 		$this->load->helper('form');
 		$this->load->library('form_validation');
 		$data['title'] = "新增文章";

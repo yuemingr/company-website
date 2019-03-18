@@ -62,3 +62,6 @@ $route['news'] = 'news';
 
 /* admin user */
 $route['admin/user/modify/(:any)'] = "admin/user/modify/$1";
+
+/* admin news */
+$route['/admin/news/edit/(:any)'] = 'admin/news/edit/$1';

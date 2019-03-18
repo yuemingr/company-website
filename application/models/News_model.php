@@ -22,4 +22,9 @@ class News_model extends CI_Model {
 	{
 		return $this->db->insert('news',$new);
 	}
+	
+	public function up_new($newid, $new)
+	{
+		return $this->db->where('id',$newid)->update('news', $new);
+	}
 }
