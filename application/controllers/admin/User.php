@@ -1,7 +1,7 @@
 <?php
 /* 用户管理 */
 class User extends CI_Controller{
-
+    private $passaddchar = 'company_user_pass';
     public function __construct()
 	{
 	    parent::__construct();
@@ -11,7 +11,6 @@ class User extends CI_Controller{
     public function index(){
 	    $this->listUser();
 	}
-	
 	public function listUser()
 	{
 	    $data['userlist'] = $this->user_model->get_users();
@@ -29,6 +28,31 @@ class User extends CI_Controller{
 		} else {
 		    echo "not ok";
 		}
+	}
+	public function login()
+	{
+	    $this->load->helper('form');
+		$this->load->library('form_validation');
+		$data['title'] = "用户登陆";
+	
+	    $this->form_validation->set_rules('uname','uname','required');
+		$this->form_validation->set_rules('passwd','passwd','required');
+		if ($this->form_validation->run() === FALSE)
+		{
+		     $this->load->view('admin/user/login',$data);
+		}
+		$uname = $this->input->post('uname');
+		$passwd = $this->input->post('passwd');
+		$userinfo = $this->user_model->get_user_for_name($uname);
+		if (empty($userinfo)) {
+		    echo "aaa没有此用户";return;
+		}
+		if (md5($passwd . 'company_user_pass') == $userinfo['passwd']) {
+		    echo "bbb登陆成功";
+		} else {
+		    echo "ccc用户名或密码错误";
+		}
+		
 	}
 	public function modify($userid)
 	{
@@ -57,7 +81,7 @@ class User extends CI_Controller{
 		    //保存表单
 			$userdata = array(
 			    //'uname' => $this->input->post('uname'),
-				'passwd'=> md5($this->input->post('passwd') . 'company_user_pass'),
+				'passwd'=> md5($this->input->post('passwd') . $this->passaddchar),
 				'mtime' => time()
 			);
 			$ret = $this->user_model->up_user($userid, $userdata);
@@ -114,6 +138,4 @@ class User extends CI_Controller{
 	    $this->load->view('news/view',$data);
 	    $this->load->view('templates/footer', $data);
     }
-	
-
 }
